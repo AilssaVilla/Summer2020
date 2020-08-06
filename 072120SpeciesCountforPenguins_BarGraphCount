@@ -1,0 +1,8 @@
+#SpeciesCountforPenguinsBargraphCount
+penguins%>%
+  count(species) %>%
+  ggplot() + geom_col(aes(x = species, y = n, fill = species)) +
+  geom_label(aes(x = species, y = n, label = n)) +
+  scale_fill_manual(values = c("#009E73","#CC79a7","gray")) +
+  theme_minimal() +
+  labs(title = 'Species Count for Penguins')
