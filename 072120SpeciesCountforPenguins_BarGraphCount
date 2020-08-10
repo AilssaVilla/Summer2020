@@ -1,3 +1,9 @@
+library(palmerpenguins)
+penguins
+
+library(tidyverse)
+glimpse(penguins)
+
 #SpeciesCountforPenguinsBargraphCount
 penguins%>%
   count(species) %>%
