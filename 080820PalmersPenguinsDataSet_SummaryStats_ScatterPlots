@@ -1,0 +1,58 @@
+library(palmerpenguins)
+penguins
+glimpse(penguins)
+
+#statsumm
+ggplot(data = penguins) +
+  stat_summary(
+    mapping = aes(x = sex, y = flipper_length_mm),
+    fun.min = min,
+    fun.max = max,
+    fun = mean) +
+  labs(title = "Average Flipper Length for each Sex",
+       subtitle = "in mm",
+       x = "Sex",
+       y = "Flipper Length (mm)")
+
+ggplot(data = penguins) +
+  stat_summary(
+    mapping = aes(x = sex, y = body_mass_g),
+    fun.min = min,
+    fun.max = max,
+    fun = mean) +
+  labs(title = "Average Body Mass for each Sex", 
+  x = "Sex", y = "Body Mass (g)")
+
+penguins%>%
+  group_by(sex) %>%
+  summarise(mean(flipper_length_mm))
+
+penguins%>%
+  group_by(sex) %>%
+  summarise(mean(body_mass_g))
+
+penguins%>%
+  group_by(species) %>%
+  summarise(mean(body_mass_g))
+
+penguins%>%
+  group_by(species) %>%
+  summarise(mean(flipper_length_mm))
+
+#BodyMass to Flipper Length Ratio for Each Sex
+ggplot(data = penguins, aes(x = flipper_length_mm, y = body_mass_g)) +
+  geom_point(aes(color = sex, shape = sex), size = 3, position = "jitter") +
+  scale_shape_manual(values=c(15,16,17)) +
+  labs(title = "Body Mass to Flipper Length Ratio for each Sex",
+      x = "Flipper Length (mm)",
+      y = "Body Mass (g)") +
+  stat_smooth(method = "lm", se = FALSE, fullrange = TRUE)
+
+#Body Mass to FLipper Length Ratio for each Sex by Species
+ggplot(data = penguins, aes(x = flipper_length_mm, y = body_mass_g)) +
+ geom_point(aes(color = sex, shape = species), size = 3, position = "jitter") +
+  scale_shape_manual(values=c(15,16,17)) +
+  labs(title = "Body Mass to Flipper Length Ratio", subtitle = "among females and males each species",
+      x = "Flipper Length (mm)",
+      y = "Body Mass (g)") +
+  stat_smooth(method = "lm", se = FALSE, fullrange = TRUE)
